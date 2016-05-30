@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">AstroApplication</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="longitude_key">logitude</string>
+    <string name="latitude_key">latitude</string>
+    <string name="default_latitude">51.75925</string>
+    <string name="pref_logitude">19.45598</string>
+    <string name="refresh_time_key">time</string>
+    <string name="default_refresh_time">15</string>
+</resources>

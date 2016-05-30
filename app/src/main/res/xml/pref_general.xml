@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:title="latitude"
+        android:key="@string/latitude_key"
+        android:defaultValue="@string/default_latitude"
+        android:inputType="text"
+        android:singleLine="true" />
+
+    <EditTextPreference
+        android:title="longitude"
+        android:key="@string/longitude_key"
+        android:defaultValue="@string/pref_logitude"
+        android:inputType="text"
+        android:singleLine="true" />
+
+    <EditTextPreference
+        android:title="Refresh Time"
+        android:key="@string/refresh_time_key"
+        android:defaultValue="@string/default_refresh_time"
+        android:inputType="number"
+        android:singleLine="true" />
+
+</PreferenceScreen>
