@@ -15,7 +15,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 
 
 public class Settings extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
@@ -58,5 +58,10 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         return true;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+        Toast.makeText(getApplicationContext(),"Stop of COntext", Toast.LENGTH_LONG).show();
+    }
 }

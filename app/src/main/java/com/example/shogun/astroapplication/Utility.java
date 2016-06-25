@@ -14,4 +14,8 @@ public class Utility {
     static double longitudeDouble(SharedPreferences sharedPreferences,Context context) {
         return Double.valueOf(sharedPreferences.getString(context.getString(R.string.longitude_key), context.getString(R.string.pref_logitude)));
     }
+
+    static int getRefreshPeriodTime(SharedPreferences sharedPreferences,Context context){
+        return Integer.valueOf(sharedPreferences.getString("time","15"));
+    }
 }

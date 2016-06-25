@@ -7,57 +7,60 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 
 
-
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.RunnableFuture;
 
 public class SunFragment extends Fragment {
 
-    private static final String LOG_TAG= "SunFRAGMENT";
+    private static final String LOG_TAG = "SunFRAGMENT";
     private Timer autoUpdate;
-    private  TextView clock;
+    private TextView clock;
     private SharedPreferences preferences;
 
-    private static TextView rise;
-    private static TextView sunset;
-    private static TextView zmierzch;
 
-    double longitude;
-    double latitude;
+    private  TextView rise;
+    private  TextView sunset;
+    private  TextView zmierzch;
 
+    private double longitude;
+    private double latitude;
+
+    private static Calendar calendar = Calendar.getInstance();
     private AstroCalculator.Location location;
-    private AstroDateTime astroDateTime;
-    private AstroCalculator astroCalculator;
-    private Handler handler = new Handler();
+    private static AstroDateTime astroDateTime;
+    private static AstroCalculator astroCalculator;
+    private Handler handler;
+    private static AstroCalculator.SunInfo sunInfo ;
 
-
-
-
-    private String hourOfRise() {
-        int godzina = sunInfo.getSunrise().getHour();
-        int minuta = sunInfo.getSunrise().getMinute();
-        return String.valueOf(godzina) + " : " + String.valueOf(minuta);
+    private static String hourOfRise() {
+        int hour = sunInfo.getSunrise().getHour();
+        int minute = sunInfo.getSunrise().getMinute();
+        return String.valueOf(hour) + " : " + String.valueOf(minute);
     }
 
-    private String hourOfSunset() {
-        int godzina = sunInfo.getSunset().getHour();
-        int minuta = sunInfo.getSunset().getMinute();
-        return String.valueOf(godzina) + " : " + String.valueOf(minuta);
+    private static String hourOfSunset() {
+        int hour = sunInfo.getSunset().getHour();
+        int minute = sunInfo.getSunset().getMinute();
+        return String.valueOf(hour) + " : " + String.valueOf(minute);
     }
 
-    private String hourOfZmierzch() {
+    private static String hourOfZmierzch() {
         if ((sunInfo.getSunrise().getHour() > MyTIme.calendar.get(Calendar.HOUR)) | (sunInfo.getSunset().getHour() > MyTIme.calendar.get(Calendar.HOUR))) {
 
 
@@ -71,9 +74,10 @@ public class SunFragment extends Fragment {
         }
     }
 
-    Calendar calendar = Calendar.getInstance();
 
-    private AstroCalculator.SunInfo sunInfo ;
+
+
+
 
     public interface OnHeadlineSelectedListener {
         public void onArticleSelected(int position);
@@ -81,9 +85,9 @@ public class SunFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
 
-    private static final String ARG_PARAM1 = "param1";
 
-    private String mParam1;
+
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -92,6 +96,31 @@ public class SunFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+      //  Toast.makeText(getContext(),Calendar.getInstance().getTimeZone().toString(),Toast.LENGTH_LONG).show();
+    }
+
+    public  void update() {
+        calendar = Calendar.getInstance(Locale.GERMAN);
+
+        astroDateTime = new AstroDateTime(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND),
+                1,
+                true
+        );
+
+        rise.setText(hourOfRise());
+        sunset.setText(hourOfSunset());
+        zmierzch.setText(hourOfZmierzch());
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -102,7 +131,7 @@ public class SunFragment extends Fragment {
     public static SunFragment newInstance(String param1) {
         SunFragment fragment = new SunFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -111,16 +140,12 @@ public class SunFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
-
 
         astroDateTime = new AstroDateTime(
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.HOUR),
+                calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
                 calendar.get(Calendar.SECOND),
                 2,
@@ -131,8 +156,17 @@ public class SunFragment extends Fragment {
         latitude = Utility.latitudeDouble(preferences, getContext());
         location = new AstroCalculator.Location(latitude, longitude);
         astroCalculator = new AstroCalculator(astroDateTime, location);
-
+        Toast.makeText(getContext(),location.toString(),Toast.LENGTH_LONG);
+        Log.d(LOG_TAG ,"  "+location.toString());
         sunInfo = astroCalculator.getSunInfo();
+
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                update();
+            }
+        }, Utility.getRefreshPeriodTime(preferences, getContext()));
     }
 
     @Override
@@ -178,10 +212,6 @@ public class SunFragment extends Fragment {
         super.onResume();
 
 
-
-
-//clock.setText(MyTIme.getTime());
-
         autoUpdate = new Timer();
         autoUpdate.schedule(new TimerTask() {
             @Override
@@ -189,14 +219,15 @@ public class SunFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         clock.setText(MyTIme.getTime());
-                        Log.i(LOG_TAG,MyTIme.getTime());
+                        Log.i(LOG_TAG, MyTIme.getTime());
                     }
                 });
             }
-        }, 0, 1000); // updates each 40 secs
+        }, 0, 1000);
 
 
     }
+
     @Override
     public void onDetach() {
         super.onDetach();

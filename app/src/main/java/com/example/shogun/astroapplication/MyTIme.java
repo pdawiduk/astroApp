@@ -10,6 +10,7 @@ import com.astrocalculator.AstroDateTime;
 
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 
 import java.util.Calendar;
@@ -22,8 +23,9 @@ public class MyTIme {
     static Calendar calendar = Calendar.getInstance();
 
     public static String getTime() {
-         LocalDateTime now = LocalDateTime.now();
-        return String.valueOf(now.getHourOfDay()+2) + " : " + String.valueOf(now.getMinuteOfHour()) + ":" + String.valueOf(now.getSecondOfMinute());
+         LocalDateTime now = LocalDateTime.now(DateTimeZone.forOffsetHours(2));
+
+        return String.valueOf(now.getHourOfDay()) + " : " + String.valueOf(now.getMinuteOfHour()) + ":" + String.valueOf(now.getSecondOfMinute());
     }
 
 
