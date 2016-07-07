@@ -19,6 +19,8 @@ import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeFieldType;
 import org.joda.time.LocalDateTime;
 
 import java.util.Calendar;
@@ -66,7 +68,7 @@ public class SunFragment extends Fragment {
     }
 
     private static String hourOfZmierzch() {
-        if ((sunInfo.getSunrise().getHour() > MyTIme.calendar.get(Calendar.HOUR)) | (sunInfo.getSunset().getHour() > MyTIme.calendar.get(Calendar.HOUR))) {
+        if ((sunInfo.getSunrise().getHour() < MyTIme.calendar.get(Calendar.HOUR)) | (sunInfo.getSunset().getHour() > MyTIme.calendar.get(Calendar.HOUR))) {
 
 
             int godzina = sunInfo.getTwilightMorning().getHour();
@@ -78,10 +80,6 @@ public class SunFragment extends Fragment {
             return String.valueOf(godzina) + " : " + String.valueOf(minuta);
         }
     }
-
-
-
-
 
 
     public interface OnHeadlineSelectedListener {
@@ -104,7 +102,6 @@ public class SunFragment extends Fragment {
     public  static void update() {
 
         calendar = MyTIme.getDate();
-
         astroDateTime = new AstroDateTime(
                 calendar.getYear(),
                 calendar.getMonthOfYear(),
@@ -112,7 +109,7 @@ public class SunFragment extends Fragment {
                 calendar.getHourOfDay(),
                 calendar.getMinuteOfHour(),
                 calendar.getSecondOfMinute(),
-                2,
+                1,
                 true
         );
 
@@ -124,7 +121,8 @@ public class SunFragment extends Fragment {
 
         rise.setText(hourOfRise());
         sunset.setText(hourOfSunset());
-        zmierzchRano.setText(hourOfZmierzch());
+        zmierzchRano.setText(sunInfo.getTwilightMorning().toString());
+        zmierzchWieczor.setText(sunInfo.getTwilightEvening().toString());
         azymutRano.setText(String.valueOf(sunInfo.getAzimuthRise()));
         azymutWieczor.setText(String.valueOf(sunInfo.getAzimuthSet()));
     }

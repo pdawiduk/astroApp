@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
-public class Settings extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
+public class Settings extends PreferenceFragment implements Preference.OnPreferenceChangeListener{
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -59,18 +59,10 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         return true;
     }
 
-    @Override
-    protected void onStop() {
-        SunFragment.update();
-        MoonFragment.update();
-        super.onStop();
-    }
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    @Override
-    public Intent getParentActivityIntent() {
-        return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    }
+
+
+
 
 
 

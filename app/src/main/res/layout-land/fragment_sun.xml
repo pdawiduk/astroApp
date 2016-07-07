@@ -16,8 +16,8 @@
         android:orientation="vertical"
         >
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/smallsun"/>
         <TextView
             android:id="@+id/clock"
@@ -169,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Swit "
+                android:text="Zmierzch Rano "
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
                 android:paddingRight="40dp"

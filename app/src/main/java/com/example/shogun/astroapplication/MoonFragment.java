@@ -58,7 +58,7 @@ public class MoonFragment extends Fragment {
                 date.getHourOfDay(),
                 date.getMinuteOfHour(),
                 date.getSecondOfMinute(),
-                2,
+                1,
                 true
         );
 
@@ -75,6 +75,7 @@ public class MoonFragment extends Fragment {
         faza.setText(String.valueOf(moonInfo.getIllumination()));
         synod.setText(String.valueOf(moonInfo.getAge()));
         pelnia.setText(moonInfo.getNextFullMoon().toString());
+
 
 
     }
@@ -116,8 +117,8 @@ public class MoonFragment extends Fragment {
         faza = (TextView) view.findViewById(R.id.faza);
         synod = (TextView) view.findViewById(R.id.synod);
         pelnia = (TextView) view.findViewById(R.id.pelnia);
-
         update();
+
         return view;
     }
 
@@ -137,6 +138,7 @@ public class MoonFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
     autoUpdateForData= new Timer();
         autoUpdateForData.schedule(new TimerTask() {
             @Override
@@ -148,6 +150,7 @@ public class MoonFragment extends Fragment {
                     }
                 });}
             }
+
         },  Utility.getRefreshPeriodTime(preferences,getContext())*valueOfMinute);
 
     }
