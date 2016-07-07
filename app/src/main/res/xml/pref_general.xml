@@ -4,14 +4,14 @@
         android:title="latitude"
         android:key="@string/latitude_key"
         android:defaultValue="@string/default_latitude"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:singleLine="true" />
 
     <EditTextPreference
         android:title="longitude"
         android:key="@string/longitude_key"
         android:defaultValue="@string/pref_logitude"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:singleLine="true" />
 
     <EditTextPreference

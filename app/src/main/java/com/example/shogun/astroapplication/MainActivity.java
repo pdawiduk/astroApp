@@ -1,5 +1,6 @@
 package com.example.shogun.astroapplication;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,8 +27,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements MoonFragment.OnFragmentInteractionListener, SunFragment.OnFragmentInteractionListener{
-
-
+    private Timer autoUpdateForData;
+    private static boolean twoPane = false;
 
     @Override
     protected void onPostResume() {
@@ -50,16 +51,26 @@ public class MainActivity extends AppCompatActivity implements MoonFragment.OnFr
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        if(findViewById(R.id.MoonFragment_container)== null) {
+            twoPane =false;
+            // Set up the ViewPager with the sections adapter.
+            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(mViewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        }
+        else {
+            twoPane =true;
+//        getSupportFragmentManager().beginTransaction().replace(R.id.sunFragment,new SunFragment()).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.MoonFragment_container,new MoonFragment()).commit();
+//
+}
 
 
 
@@ -67,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements MoonFragment.OnFr
 
     @Override
     public void onResume() {
+        MoonFragment moonFragment =(MoonFragment) getSupportFragmentManager().findFragmentById(R.id.MoonFragment_container);
+        SunFragment sunFragment = (SunFragment)  getSupportFragmentManager().findFragmentById(R.id.sunFragment);
         super.onResume();
 
 

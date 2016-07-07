@@ -18,4 +18,8 @@ public class Utility {
     static int getRefreshPeriodTime(SharedPreferences sharedPreferences,Context context){
         return Integer.valueOf(sharedPreferences.getString("time","15"));
     }
+
+    static String getCity(SharedPreferences sharedPreferences){
+        return sharedPreferences.getString("city","lodz");
+    }
 }

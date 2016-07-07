@@ -15,18 +15,14 @@
         android:layout_gravity="center_horizontal|top"
         android:src="@drawable/ganymede" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_gravity="center">
+
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
+            android:orientation="horizontal"
+
+            android:weightSum="2"
             >
 
             <TextView
@@ -35,7 +31,7 @@
                 android:layout_gravity="center"
                 android:text="wschod"
                 android:textColor="@android:color/white"
-
+                android:layout_weight="1"
                 android:textSize="20dp"/>
 
             <TextView
@@ -45,15 +41,16 @@
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
                 android:hint="JUTRO"
+                android:layout_weight="1"
                 android:textColorHint="@android:color/white"
                 android:textColorHighlight="@android:color/white"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,6 +59,7 @@
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
+                android:layout_weight="1"
                  />
 
             <TextView
@@ -71,15 +69,16 @@
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
                 android:hint="JUTRO"
+                android:layout_weight="1"
                 android:textColorHint="@android:color/white"
                 android:textColorHighlight="@android:color/white"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,7 +86,8 @@
                 android:text="faza"
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/faza"
@@ -97,11 +97,12 @@
                 android:textSize="20dp"
                 android:hint="JUTRO"
                 android:textColorHint="@android:color/white"
-                android:textColorHighlight="@android:color/white"/>
+                android:textColorHighlight="@android:color/white"
+                android:layout_weight="1"/>
         </LinearLayout>
 
 
-    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

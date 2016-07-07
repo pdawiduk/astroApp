@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -21,10 +22,15 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
+
+    compile files('libs/astrocalculator.jar'
+    )
+    compile 'org.greenrobot:greendao:3.0.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
     compile 'net.danlew:android.joda:2.9.3.1'
-    compile files('libs/astrocalculator.jar')
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.android.support:support-vector-drawable:23.4.0'
+    testCompile 'junit:junit:4.12'
 }

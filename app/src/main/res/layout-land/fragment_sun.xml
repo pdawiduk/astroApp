@@ -1,44 +1,54 @@
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SunFragment"
     android:background="@android:color/black"
     android:orientation="vertical"
-    tools:context="com.example.shogun.astroapplication.SunFragment">
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="167dp"
-        android:layout_height="167dp"
-        android:layout_gravity="center_horizontal|top"
-        android:src="@drawable/sun" />
+    android:id="@+id/scrollviewsun">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-
         >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/smallsun"/>
+        <TextView
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:layout_gravity="right"
+            android:hint="9:34"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="44dp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
-            android:weightSum="2">
-          <TextView
-              android:layout_weight="1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Wschod slonca"
-              android:textColor="#ffffff"
-              android:layout_gravity="left"
-              android:textSize="@dimen/size_text_sun"
-              android:paddingRight="40dp"
-              />
+            android:weightSum="2"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wschod slonca"
+                android:textColor="#ffffff"
+                android:layout_gravity="left"
+                android:textSize="@dimen/size_text_sun"
+                android:paddingRight="40dp"
+                />
 
             <TextView
                 android:id="@+id/riseText"
@@ -50,8 +60,7 @@
                 android:textColor="#ffffff"
                 android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
-                android:layout_marginTop="0dp"
-                android:maxLength="15"/>
+                android:layout_marginTop="0dp"/>
 
         </LinearLayout>
 
@@ -60,7 +69,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:layout_marginRight="20dp">
             <TextView
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
@@ -82,8 +92,7 @@
                 android:textColor="#ffffff"
                 android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
-                android:layout_marginTop="0dp"
-                android:maxLength="15"/>
+                android:layout_marginTop="0dp"/>
 
         </LinearLayout>
 
@@ -92,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:orientation="horizontal"
+            android:layout_marginRight="20dp"
             android:weightSum="2">
 
             <TextView
@@ -102,8 +112,7 @@
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
                 android:paddingRight="40dp"
-                android:textSize="@dimen/size_text_sun"
-                />
+                android:textSize="@dimen/size_text_sun"/>
 
             <TextView
                 android:id="@+id/sunsetText"
@@ -114,8 +123,7 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
-                android:layout_gravity="right"
-                android:maxLength="15"/>
+                android:layout_gravity="right"/>
 
         </LinearLayout>
 
@@ -124,6 +132,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:weightSum="2">
             <TextView
                 android:layout_weight="1"
@@ -133,8 +142,6 @@
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
                 android:textSize="@dimen/size_text_sun"
-                android:paddingRight="40dp"
-
                 />
 
             <TextView
@@ -147,8 +154,7 @@
                 android:textColor="#ffffff"
                 android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
-                android:layout_marginTop="0dp"
-                android:maxLength="15"/>
+                android:layout_marginTop="0dp"/>
 
         </LinearLayout>
 
@@ -179,8 +185,7 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="#ffffff"
                 android:layout_gravity="right"
-                android:textSize="@dimen/size_text_sun"
-                android:maxLength="15"/>
+                android:textSize="@dimen/size_text_sun" />
 
         </LinearLayout>
 
@@ -211,24 +216,11 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="#ffffff"
                 android:layout_gravity="right"
-                android:maxLength="15"
 
                 android:textSize="@dimen/size_text_sun" />
 
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/clock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_weight="3"
-        android:hint="9:34"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:textSize="44dp" />
-</LinearLayout>
 
-
+</ScrollView>

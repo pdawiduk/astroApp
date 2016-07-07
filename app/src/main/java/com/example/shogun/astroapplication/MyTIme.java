@@ -14,6 +14,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Shogun on 2016-05-30.
@@ -26,6 +27,11 @@ public class MyTIme {
          LocalDateTime now = LocalDateTime.now(DateTimeZone.forOffsetHours(2));
 
         return String.valueOf(now.getHourOfDay()) + " : " + String.valueOf(now.getMinuteOfHour()) + ":" + String.valueOf(now.getSecondOfMinute());
+    }
+
+    public static LocalDateTime getDate(){
+        return LocalDateTime.now(DateTimeZone.forOffsetHours(2));
+
     }
 
 

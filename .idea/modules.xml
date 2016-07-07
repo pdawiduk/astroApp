@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AstroApplication.iml" filepath="$PROJECT_DIR$/AstroApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/astroApp.iml" filepath="$PROJECT_DIR$/astroApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/astrocalculator/astrocalculator.iml" filepath="$PROJECT_DIR$/astrocalculator/astrocalculator.iml" />
     </modules>
   </component>

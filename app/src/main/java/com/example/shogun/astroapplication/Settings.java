@@ -28,6 +28,7 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
         bindPreferenceSummaryToValue(findPreference(getString(R.string.latitude_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.longitude_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.refresh_time_key)));
+     //   bindPreferenceSummaryToValue(findPreference(getString(R.string.city)));
 
     }
 
@@ -60,8 +61,17 @@ public class Settings extends PreferenceActivity implements Preference.OnPrefere
 
     @Override
     protected void onStop() {
+        SunFragment.update();
+        MoonFragment.update();
         super.onStop();
-
-        Toast.makeText(getApplicationContext(),"Stop of COntext", Toast.LENGTH_LONG).show();
     }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    @Override
+    public Intent getParentActivityIntent() {
+        return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    }
+
+
+
 }

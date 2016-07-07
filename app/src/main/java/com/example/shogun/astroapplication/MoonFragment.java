@@ -1,5 +1,6 @@
 package com.example.shogun.astroapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,53 +12,88 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 
+import org.joda.time.LocalDateTime;
+
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MoonFragment extends Fragment {
 
     private static AstroCalculator.MoonInfo moonInfo ;
-    private SharedPreferences preferences;
+    private static SharedPreferences preferences;
 
     private static Calendar calendar = Calendar.getInstance();
-    private AstroCalculator.Location location;
+    private static AstroCalculator.Location location;
     private static AstroDateTime astroDateTime;
     private static AstroCalculator astroCalculator;
 
     private static double longitude;
     private static double latitude;
+    private static Context context;
+    private static final int valueOfMinute = 60 * 1000;
 
-    TextView wschod ;
-    TextView zachod ;
-    TextView faza;
+    private static LocalDateTime date = MyTIme.getDate();
 
-    TextView pelnia;
-    TextView synod;
+    static TextView wschod ;
+    static TextView zachod ;
+    static TextView faza;
+
+    static TextView pelnia;
+    static TextView synod;
+    private Timer autoUpdateForData;
+
+    public static void update() {
+        calendar = Calendar.getInstance();
+        astroDateTime = new AstroDateTime(
+                date.getYear(),
+                date.getMonthOfYear(),
+                date.getDayOfMonth(),
+                date.getHourOfDay(),
+                date.getMinuteOfHour(),
+                date.getSecondOfMinute(),
+                2,
+                true
+        );
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        longitude= Utility.longitudeDouble(preferences,context);
+        latitude = Utility.latitudeDouble(preferences, context);
+        location = new AstroCalculator.Location(latitude, longitude);
+        astroCalculator = new AstroCalculator(astroDateTime, location);
+
+        moonInfo = astroCalculator.getMoonInfo();
+
+        wschod.setText(moonInfo.getMoonrise().toString());
+        zachod.setText(moonInfo.getMoonset().toString());
+        faza.setText(String.valueOf(moonInfo.getIllumination()));
+        synod.setText(String.valueOf(moonInfo.getAge()));
+        pelnia.setText(moonInfo.getNextFullMoon().toString());
+
+
+    }
+
 
     public interface OnHeadlineSelectedListener {
         public void onArticleSelected(int position);
     }
 
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public MoonFragment() {
-        // Required empty public constructor
+
     }
 
 
     public static MoonFragment newInstance(String param1) {
         MoonFragment fragment = new MoonFragment();
         Bundle args = new Bundle();
-
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,28 +102,10 @@ public class MoonFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        astroDateTime = new AstroDateTime(
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                calendar.get(Calendar.SECOND),
-                2,
-                true
-        );
-     //   Log.d(MoonFragment.class.getSimpleName())
-        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        longitude= Utility.longitudeDouble(preferences,getContext());
-        latitude = Utility.latitudeDouble(preferences, getContext());
-        location = new AstroCalculator.Location(latitude, longitude);
-        astroCalculator = new AstroCalculator(astroDateTime, location);
-
-        moonInfo = astroCalculator.getMoonInfo();
-
+        context = getContext();
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,7 +117,7 @@ public class MoonFragment extends Fragment {
         synod = (TextView) view.findViewById(R.id.synod);
         pelnia = (TextView) view.findViewById(R.id.pelnia);
 
-
+        update();
         return view;
     }
 
@@ -119,11 +137,19 @@ public class MoonFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        wschod.setText(moonInfo.getMoonrise().toString());
-        zachod.setText(moonInfo.getMoonset().toString());
-        faza.setText(String.valueOf(moonInfo.getIllumination()));
-        synod.setText(String.valueOf(moonInfo.getAge()));
-        pelnia.setText(moonInfo.getNextFullMoon().toString());
+    autoUpdateForData= new Timer();
+        autoUpdateForData.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(getActivity()!=null){
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        update();
+                    }
+                });}
+            }
+        },  Utility.getRefreshPeriodTime(preferences,getContext())*valueOfMinute);
+
     }
 
     @Override
@@ -132,6 +158,11 @@ public class MoonFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        autoUpdateForData.cancel();
+    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
