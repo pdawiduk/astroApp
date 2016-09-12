@@ -3,6 +3,11 @@ package com.example.shogun.astroapplication;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Shogun on 2016-05-30.
  */
@@ -21,5 +26,14 @@ public class Utility {
 
     static String getCity(SharedPreferences sharedPreferences){
         return sharedPreferences.getString("city","lodz");
+    }
+
+    public static int getCurrentTimeZoneOffset() {
+        DateTimeZone tz = DateTimeZone.getDefault();
+        Long instant = DateTime.now().getMillis();
+
+        long offsetInMilliseconds = tz.getOffset(instant);
+        long hours = TimeUnit.MILLISECONDS.toHours( offsetInMilliseconds );
+        return (int) hours;
     }
 }

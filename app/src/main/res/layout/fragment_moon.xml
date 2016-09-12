@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="wschod"
+                android:text="@string/wschod"
                 android:textColor="@android:color/white"
                 android:layout_weight="1"
                 android:textSize="20dp"/>
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="zahod"
+                android:text="@string/zahod"
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
@@ -83,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="faza"
+                android:text="@string/phase"
                 android:layout_gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
@@ -112,7 +112,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="najblizsza pelnia"
+            android:text="@string/fullMoon"
             android:textColor="@android:color/white"
             android:textSize="20dp"
             android:layout_gravity="center_horizontal"/>
@@ -127,7 +127,8 @@
             android:textColorHint="@android:color/white"
             android:hint="JUTRO"
             android:textColorHighlight="@android:color/white"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:maxLength="20"/>
 
     </LinearLayout>
 
@@ -139,7 +140,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="dzien miesiaca synodycznego"
+            android:text="@string/dayOfSynodicMonth"
             android:textColor="@android:color/white"
             android:textSize="20dp"
             android:layout_gravity="center_horizontal"
@@ -155,7 +156,41 @@
             android:textColorHint="@android:color/white"
             android:hint="JUTRO"
             android:textColorHighlight="@android:color/white"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:maxLength="5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/theClosestFullMoon"
+            android:textColor="#ffffff"
+            android:layout_gravity="left"
+            android:paddingRight="40dp"
+            android:textSize="@dimen/size_text_sun"
+            />
+
+        <TextView
+            android:id="@+id/now"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="22:00"
+            android:textColor="@android:color/white"
+            android:textColorHint="#ffffff"
+            android:textSize="@dimen/size_text_sun"
+            android:layout_gravity="right"
+            android:maxLength="20"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

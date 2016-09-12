@@ -19,9 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-
-        >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +31,7 @@
               android:layout_weight="1"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="Wschod slonca"
+              android:text="@string/sunSet"
               android:textColor="#ffffff"
               android:layout_gravity="left"
               android:textSize="@dimen/size_text_sun"
@@ -46,12 +44,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:hint="7:00"
                 android:textColor="#ffffff"
                 android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
                 android:layout_marginTop="0dp"
-                android:maxLength="15"/>
+                />
 
         </LinearLayout>
 
@@ -65,7 +62,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Azymut"
+                android:text="@string/asimuth"
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
                 android:textSize="@dimen/size_text_sun"
@@ -78,12 +75,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:hint="7:00"
                 android:textColor="#ffffff"
-                android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
                 android:layout_marginTop="0dp"
-                android:maxLength="15"/>
+                android:maxLength="5"
+                />
 
         </LinearLayout>
 
@@ -98,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Zachod slonca"
+                android:text="@string/sunset"
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
                 android:paddingRight="40dp"
@@ -110,12 +106,10 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="22:00"
                 android:textColor="@android:color/white"
-                android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
                 android:layout_gravity="right"
-                android:maxLength="15"/>
+                />
 
         </LinearLayout>
 
@@ -129,7 +123,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Azymut"
+                android:text="@string/asimuth"
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
                 android:textSize="@dimen/size_text_sun"
@@ -143,12 +137,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:hint="7:00"
                 android:textColor="#ffffff"
-                android:textColorHint="#ffffff"
                 android:textSize="@dimen/size_text_sun"
                 android:layout_marginTop="0dp"
-                android:maxLength="15"/>
+                android:maxLength="5"/>
 
         </LinearLayout>
 
@@ -163,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Zmierzch Rano "
+                android:text="@string/dawn"
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
                 android:paddingRight="40dp"
@@ -175,9 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="rano"
                 android:textColor="@android:color/white"
-                android:textColorHint="#ffffff"
                 android:layout_gravity="right"
                 android:textSize="@dimen/size_text_sun"
                 android:maxLength="15"/>
@@ -195,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Zmierzch - Wieczor "
+                android:text="@string/dusk"
                 android:textColor="#ffffff"
                 android:layout_gravity="left"
 
@@ -207,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="jutro"
+                android:hint="@string/tomorrow"
                 android:textColor="@android:color/white"
                 android:textColorHint="#ffffff"
                 android:layout_gravity="right"
@@ -224,11 +214,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_weight="3"
-        android:hint="9:34"
+        android:hint="@string/testCurrentClock"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         android:textSize="44dp" />
+
+
 </LinearLayout>
 
 

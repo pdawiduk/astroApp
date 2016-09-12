@@ -1,18 +1,15 @@
 package com.example.shogun.astroapplication;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
@@ -20,7 +17,6 @@ import com.astrocalculator.AstroDateTime;
 import org.joda.time.LocalDateTime;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,17 +33,26 @@ public class MoonFragment extends Fragment {
     private static double longitude;
     private static double latitude;
     private static Context context;
-    private static final int valueOfMinute = 60 * 1000;
+    private static final int VALUE_OF_MINUTE = 60 * 1000;
 
     private static LocalDateTime date = MyTIme.getDate();
 
-    static TextView wschod ;
-    static TextView zachod ;
-    static TextView faza;
-
-    static TextView pelnia;
-    static TextView synod;
+   private static TextView rise;
+   private static TextView zachod ;
+   private static TextView phase;
+    private static TextView fullMoon;
+    private static TextView synod;
+    private static TextView now;
     private Timer autoUpdateForData;
+
+
+    private static String moonRise(){
+        return moonInfo.getMoonrise().getHour() + " : "+ moonInfo.getMoonrise().getMinute();
+    }
+
+    private static String moonSet(){
+        return moonInfo.getMoonset().getHour() + " : "+ moonInfo.getMoonset().getMinute();
+    }
 
     public static void update() {
         calendar = Calendar.getInstance();
@@ -58,7 +63,7 @@ public class MoonFragment extends Fragment {
                 date.getHourOfDay(),
                 date.getMinuteOfHour(),
                 date.getSecondOfMinute(),
-                1,
+                Utility.getCurrentTimeZoneOffset(),
                 true
         );
 
@@ -70,11 +75,12 @@ public class MoonFragment extends Fragment {
 
         moonInfo = astroCalculator.getMoonInfo();
 
-        wschod.setText(moonInfo.getMoonrise().toString());
-        zachod.setText(moonInfo.getMoonset().toString());
-        faza.setText(String.valueOf(moonInfo.getIllumination()));
+        rise.setText(moonRise());
+        zachod.setText(moonSet());
+        phase.setText(String.valueOf(moonInfo.getIllumination()));
         synod.setText(String.valueOf(moonInfo.getAge()));
-        pelnia.setText(moonInfo.getNextFullMoon().toString());
+        fullMoon.setText(moonInfo.getNextFullMoon().toString());
+        now.setText(moonInfo.getNextNewMoon().toString());
 
 
 
@@ -112,11 +118,12 @@ public class MoonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_moon, container, false);
-        wschod = (TextView) view.findViewById(R.id.wschod);
+        rise = (TextView) view.findViewById(R.id.wschod);
         zachod = (TextView) view.findViewById(R.id.zachod);
-        faza = (TextView) view.findViewById(R.id.faza);
+        phase = (TextView) view.findViewById(R.id.faza);
         synod = (TextView) view.findViewById(R.id.synod);
-        pelnia = (TextView) view.findViewById(R.id.pelnia);
+        fullMoon = (TextView) view.findViewById(R.id.pelnia);
+        now =(TextView) view.findViewById(R.id.now);
         update();
 
         return view;
@@ -150,8 +157,8 @@ public class MoonFragment extends Fragment {
                     }
                 });}
             }
-
-        },  Utility.getRefreshPeriodTime(preferences,getContext())*valueOfMinute);
+        
+        },  Utility.getRefreshPeriodTime(preferences,getContext())* VALUE_OF_MINUTE);
 
     }
 
@@ -168,7 +175,7 @@ public class MoonFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 }

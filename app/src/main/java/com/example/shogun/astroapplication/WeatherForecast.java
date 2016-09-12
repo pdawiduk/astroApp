@@ -1,32 +1,27 @@
 package com.example.shogun.astroapplication;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.shogun.astroapplication.data.WeatherContract;
 
-
-
-public class WeatherFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class WeatherForecast extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
 
-    public WeatherFragment() {
-
+    public WeatherForecast() {
+        // Required empty public constructor
     }
 
-    public static WeatherFragment newInstance(String param1, String param2) {
-        WeatherFragment fragment = new WeatherFragment();
+    public static WeatherForecast newInstance(String param1) {
+        WeatherForecast fragment = new WeatherForecast();
         Bundle args = new Bundle();
+
 
         fragment.setArguments(args);
         return fragment;
@@ -44,10 +39,10 @@ public class WeatherFragment extends Fragment implements LoaderManager.LoaderCal
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_weather, container, false);
+        return inflater.inflate(R.layout.fragment_weather_forecast, container, false);
     }
 
-
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -69,21 +64,6 @@ public class WeatherFragment extends Fragment implements LoaderManager.LoaderCal
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 
     public interface OnFragmentInteractionListener {

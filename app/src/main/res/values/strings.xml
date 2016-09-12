@@ -85,4 +85,17 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="wschod">wschod</string>
+    <string name="zahod">zahod</string>
+    <string name="phase">faza</string>
+    <string name="fullMoon">najblizsza pelnia</string>
+    <string name="dayOfSynodicMonth">dzien miesiaca synodycznego</string>
+    <string name="theClosestFullMoon">NajblizszyNow</string>
+    <string name="testCurrentClock">9:34</string>
+    <string name="tomorrow">jutro</string>
+    <string name="dusk">Zmierzch - Wieczor</string>
+    <string name="sunSet">Wschod slonca</string>
+    <string name="asimuth">Azymut</string>
+    <string name="sunset">Zachod slonca</string>
+    <string name="dawn">Zmierzch Rano</string>
 </resources>

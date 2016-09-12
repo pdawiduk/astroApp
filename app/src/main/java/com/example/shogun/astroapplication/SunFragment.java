@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -19,8 +18,6 @@ import com.astrocalculator.AstroCalculator;
 import com.astrocalculator.AstroDateTime;
 
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeFieldType;
 import org.joda.time.LocalDateTime;
 
 import java.util.Calendar;
@@ -38,11 +35,11 @@ public class SunFragment extends Fragment {
 
     private static TextView rise;
     private static TextView sunset;
-    private static TextView zmierzchRano;
-    private static TextView zmierzchWieczor;
+    private static TextView dawn;
+    private static TextView dusk;
     private static final int valueOfMinute = 60 * 1000;
-    private static TextView azymutRano;
-    private static TextView azymutWieczor;
+    private static TextView asimutMorning;
+    private static TextView asimutEvening;
 
     private static double longitude;
     private static double latitude;
@@ -55,31 +52,7 @@ public class SunFragment extends Fragment {
     private Handler handler;
     private static AstroCalculator.SunInfo sunInfo ;
 
-    private static String hourOfRise() {
-        int hour = sunInfo.getSunrise().getHour();
-        int minute = sunInfo.getSunrise().getMinute();
-        return String.valueOf(hour) + " : " + String.valueOf(minute);
-    }
 
-    private static String hourOfSunset() {
-        int hour = sunInfo.getSunset().getHour();
-        int minute = sunInfo.getSunset().getMinute();
-        return String.valueOf(hour) + " : " + String.valueOf(minute);
-    }
-
-    private static String hourOfZmierzch() {
-        if ((sunInfo.getSunrise().getHour() < MyTIme.calendar.get(Calendar.HOUR)) | (sunInfo.getSunset().getHour() > MyTIme.calendar.get(Calendar.HOUR))) {
-
-
-            int godzina = sunInfo.getTwilightMorning().getHour();
-            int minuta = sunInfo.getTwilightMorning().getMinute();
-            return String.valueOf(godzina) + " : " + String.valueOf(minuta);
-        } else {
-            int godzina = sunInfo.getTwilightEvening().getHour();
-            int minuta = sunInfo.getTwilightEvening().getMinute();
-            return String.valueOf(godzina) + " : " + String.valueOf(minuta);
-        }
-    }
 
 
     public interface OnHeadlineSelectedListener {
@@ -96,10 +69,22 @@ public class SunFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-      //  Toast.makeText(getContext(),Calendar.getInstance().getTimeZone().toString(),Toast.LENGTH_LONG).show();
+    }
+    private static String getRise(){
+        return sunInfo.getSunrise().getHour()+" : "+sunInfo.getSunrise().getMinute();
+    }
+    private static String sunSet(){
+        return sunInfo.getSunset().getHour() + " : " + sunInfo.getSunset().getMinute();
+    }
+    private static String zmierzchRano(){
+        return sunInfo.getTwilightMorning().getHour() + " : " + sunInfo.getTwilightMorning().getMinute();
     }
 
-    public  static void update() {
+    private static String zmierzchWieczor(){
+        return sunInfo.getTwilightEvening().getHour() + " : " + sunInfo.getTwilightEvening().getMinute();
+    }
+
+    public static void update() {
 
         calendar = MyTIme.getDate();
         astroDateTime = new AstroDateTime(
@@ -109,7 +94,7 @@ public class SunFragment extends Fragment {
                 calendar.getHourOfDay(),
                 calendar.getMinuteOfHour(),
                 calendar.getSecondOfMinute(),
-                1,
+                Utility.getCurrentTimeZoneOffset(),
                 true
         );
 
@@ -119,12 +104,12 @@ public class SunFragment extends Fragment {
         astroCalculator = new AstroCalculator(astroDateTime, location);
         sunInfo= astroCalculator.getSunInfo();
 
-        rise.setText(hourOfRise());
-        sunset.setText(hourOfSunset());
-        zmierzchRano.setText(sunInfo.getTwilightMorning().toString());
-        zmierzchWieczor.setText(sunInfo.getTwilightEvening().toString());
-        azymutRano.setText(String.valueOf(sunInfo.getAzimuthRise()));
-        azymutWieczor.setText(String.valueOf(sunInfo.getAzimuthSet()));
+        rise.setText(getRise());
+        sunset.setText(sunSet());
+        dawn.setText(zmierzchRano());
+        dusk.setText(zmierzchWieczor());
+        asimutMorning.setText(String.valueOf(sunInfo.getAzimuthRise()));
+        asimutEvening.setText(String.valueOf(sunInfo.getAzimuthSet()));
     }
 
     @Override
@@ -146,7 +131,7 @@ public class SunFragment extends Fragment {
                 calendar.getHourOfDay(),
                 calendar.getMinuteOfHour(),
                 calendar.getSecondOfMinute(),
-                2,
+                Utility.getCurrentTimeZoneOffset(),
                 true
         );
         return fragment;
@@ -181,7 +166,7 @@ public class SunFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_sun, container, false);
         if (v == null) {
             v = inflater.inflate(R.layout.fragment_sun, container, false);
@@ -190,10 +175,10 @@ public class SunFragment extends Fragment {
         clock = (TextView) v.findViewById(R.id.clock);
         rise = (TextView) v.findViewById(R.id.riseText);
         sunset = (TextView) v.findViewById(R.id.sunsetText);
-        zmierzchRano = (TextView) v.findViewById(R.id.twilightText);
-        zmierzchWieczor= (TextView) v.findViewById(R.id.twilightnightText);
-        azymutRano = (TextView) v.findViewById(R.id.asimutRise);
-        azymutWieczor = (TextView) v.findViewById(R.id.asimutDown);
+        dawn = (TextView) v.findViewById(R.id.twilightText);
+        dusk = (TextView) v.findViewById(R.id.twilightnightText);
+        asimutMorning = (TextView) v.findViewById(R.id.asimutRise);
+        asimutEvening = (TextView) v.findViewById(R.id.asimutDown);
 
 
         update();
