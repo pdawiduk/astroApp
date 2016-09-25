@@ -19,7 +19,7 @@ import org.joda.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
-
+//musowy komentarz
 public class MoonFragment extends Fragment {
 
     private static AstroCalculator.MoonInfo moonInfo ;
