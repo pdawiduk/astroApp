@@ -1,7 +1,9 @@
 package com.example.shogun.astroapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -36,4 +38,12 @@ public class Utility {
         long hours = TimeUnit.MILLISECONDS.toHours( offsetInMilliseconds );
         return (int) hours;
     }
+
+    public static String getPrefferedLocation(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return null;
+    }
+
+
+
 }

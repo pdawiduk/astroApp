@@ -2,7 +2,9 @@ package com.example.shogun.astroapplication;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,6 +32,14 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity implements MoonFragment.OnFragmentInteractionListener, SunFragment.OnFragmentInteractionListener, CurrentWeatherInformationFragment.OnFragmentInteractionListener, ExtraInformationFragment.OnFragmentInteractionListener, WeatherForecast.OnFragmentInteractionListener{
     private Timer autoUpdateForData;
     private static boolean twoPane = false;
+
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo().isConnected() != false;
+    }
+
 
     @Override
     protected void onPostResume() {
@@ -69,8 +80,23 @@ public class MainActivity extends AppCompatActivity implements MoonFragment.OnFr
 
     @Override
     public void onResume() {
+        boolean isConnected;
+        try{
+        isConnected= isNetworkConnected();}
+        catch(Exception e) {
+            isConnected = false;
+        }
+        if(isConnected){
+            Toast.makeText(getBaseContext(),"polaczony",Toast.LENGTH_SHORT);
+        }
+        else{
+            Toast.makeText(getBaseContext()," nie polaczony",Toast.LENGTH_SHORT);
+        }
+
+
         MoonFragment moonFragment =(MoonFragment) getSupportFragmentManager().findFragmentById(R.id.MoonFragment_container);
         SunFragment sunFragment = (SunFragment)  getSupportFragmentManager().findFragmentById(R.id.sunFragment);
+
         super.onResume();
 
 

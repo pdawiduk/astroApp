@@ -31,6 +31,7 @@
             android:textAlignment="center"
             android:textSize="40sp"
             android:textColor="@android:color/white"
+            android:id="@+id/kierunek"
             />
 
         <TextView
@@ -41,6 +42,7 @@
             android:textAlignment="center"
             android:textSize="40sp"
             android:textColor="@android:color/white"
+            android:id="@+id/speed"
             />
     </LinearLayout>
 
@@ -79,6 +81,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:text="75 %"
+        android:id="@+id/wilgotnosc"
         android:textSize="40sp"/>
     <TextView
         android:layout_width="match_parent"
@@ -93,6 +96,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:text="Wiatr"
+        android:id="@+id/widocznosc"
         android:textSize="40sp"/>
     <TextView
         android:layout_width="match_parent"

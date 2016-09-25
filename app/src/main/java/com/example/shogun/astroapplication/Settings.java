@@ -28,7 +28,7 @@ public class Settings extends PreferenceFragment implements Preference.OnPrefere
         bindPreferenceSummaryToValue(findPreference(getString(R.string.latitude_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.longitude_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.refresh_time_key)));
-     //   bindPreferenceSummaryToValue(findPreference(getString(R.string.city)));
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.city)));
 
     }
 
